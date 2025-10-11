@@ -1,17 +1,14 @@
-import pandas as pd
 import numpy as np
+from tensorflow.keras.datasets import fashion_mnist
 
 def load_fashion_mnist():
-    #Load Fashion-MNIST from CSV files
-    train_df = pd.read_csv("fashion/fashion-mnist_train.csv")
-    test_df = pd.read_csv("fashion/fashion-mnist_test.csv")
-
-    # seperate features and labels
-    X_train = train_df.drop("label", axis=1).values
-    y_train = train_df["label"].values
-    X_test = test-df.drop("label", axis=1).values
-    y_test = test_df["label"].values
-
+    """Load Fashion-MNIST from Keras built-in dataset"""
+    (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
+    
+    # Flatten images for MLP (28x28 -> 784)
+    X_train = X_train.reshape(X_train.shape[0], -1)
+    X_test = X_test.reshape(X_test.shape[0], -1)
+    
     return X_train, y_train, X_test, y_test
 
 
