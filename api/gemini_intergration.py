@@ -4,7 +4,7 @@ import os
 class FashionPriceAPI:
     def __init__(self):
         genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-        self.model = genai.GenerativeModel("gemini-pro")
+        self.model = genai.GenerativeModel("gemini-2.5-flash")
 
     def get_price_and_stores(self, clothing_category, user_location=""):
             #Get price estimates and store suggestions
