@@ -115,16 +115,14 @@ plt.tight_layout()
 plt.show()
 import pickle
 
-# Example: save class names and predictions for later use
-data_to_save = {
-    'class_names': ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 
-                    'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot'],
-    'y_pred': y_pred,
-    'y_test': y_test
+# create a data dict containing what CAN be pickled
+model_data = {
+    "model_json": model.to_json(),               # model architecture
+    "model_weights": model.get_weights()         # numpy arrays
 }
 
-# Save to pickle file
-with open('fashion_data.pkl', 'wb') as file:
-    pickle.dump(data_to_save, file)
+# save it as pkl
+with open("cnn_model.pkl", "wb") as f:
+    pickle.dump(model_data, f)
 
-print("✅ Data successfully saved to fashion_data.pkl")
+print("✅ Model saved to cnn_model.pkl")
