@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append("api")
 
-from gemini_intergration import FashionPriceAPI
+from gemini_integration import FashionPriceAPI
 from dotenv import load_dotenv
 
 load_dotenv()
