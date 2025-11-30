@@ -1,0 +1,20 @@
+{
+  "model_type": "CNN",
+  "test_accuracy": 0.9143999814987183,
+  "test_loss": 0.2534674406051636,
+  "epochs": 15,
+  "class_names": [
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Ankle boot"
+  ],
+  "final_train_accuracy": 0.9395999908447266,
+  "final_val_accuracy": 0.9143999814987183
+}

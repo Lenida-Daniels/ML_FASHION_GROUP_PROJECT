@@ -4,20 +4,15 @@ sys.path.append('../src')
 
 import tensorflow as tf
 from tensorflow.keras import layers, models
-import matplotlib.pyplot as plt
 import numpy as np
 from data_loader import load_fashion_mnist, get_class_names
-from preprocessing import preprocess_for_cnn
+from preprocessing import preprocess_for_mlp
 
-def create_cnn_model():
-    """Create CNN model architecture"""
+def create_mlp_model():
+    """Create MLP model architecture"""
     model = models.Sequential([
-        layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
-        layers.MaxPooling2D((2, 2)),
-        layers.Conv2D(64, (3, 3), activation='relu'),
-        layers.MaxPooling2D((2, 2)),
-        layers.Conv2D(64, (3, 3), activation='relu'),
-        layers.Flatten(),
+        layers.Dense(128, activation='relu', input_shape=(784,)),
+        layers.Dropout(0.2),
         layers.Dense(64, activation='relu'),
         layers.Dropout(0.2),
         layers.Dense(10, activation='softmax')
@@ -31,21 +26,18 @@ def create_cnn_model():
     
     return model
 
-def train_cnn_model():
-    """Train CNN model using preprocessing functions"""
-    print("=== Training CNN Model ===")
+def train_mlp_model():
+    """Train MLP model using preprocessing functions"""
+    print("=== Training MLP Model ===")
     
     # Load data using your data_loader
     X_train, y_train, X_test, y_test = load_fashion_mnist()
     
     # Preprocess using your preprocessing function
-    X_train, X_test, y_train, y_test = preprocess_for_cnn(X_train, X_test, y_train, y_test)
+    X_train, X_test, y_train, y_test = preprocess_for_mlp(X_train, X_test, y_train, y_test)
     
-    print(f"Data loaded and preprocessed:")
-    print(f"Training data shape: {X_train.shape}")
-    print(f"Test data shape: {X_test.shape}")
     # Create model
-    model = create_cnn_model()
+    model = create_mlp_model()
     
     print("Model architecture:")
     model.summary()
@@ -58,15 +50,16 @@ def train_cnn_model():
         validation_data=(X_test, y_test),
         verbose=1
     )
+    
     # Evaluate
     test_loss, test_acc = model.evaluate(X_test, y_test, verbose=0)
-    print(f"\nCNN Test Accuracy: {test_acc:.4f}")
+    print(f"\nMLP Test Accuracy: {test_acc:.4f}")
     
     # Save model
     os.makedirs('../models/saved', exist_ok=True)
-    model.save('../models/saved/cnn_model.h5')
+    model.save('../models/saved/mlp_model.h5')
     
     return model, history, test_acc
 
 if __name__ == "__main__":
-    model, history, accuracy = train_cnn_model()
+    model, history, accuracy = train_mlp_model()
